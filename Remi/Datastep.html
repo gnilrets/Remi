@@ -159,7 +159,7 @@ operatons on Dataset objects.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create-instance_method" title="#create (instance method)">- (void) <strong>create</strong>(*dataset) </a>
+      <a href="#create-instance_method" title="#create (instance method)">- (void) <strong>create</strong>(*dataset) { ... }</a>
     
 
     
@@ -174,7 +174,7 @@ operatons on Dataset objects.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Creates one or more datasets.</p>
+<p>Used to create data in datasets.</p>
 </div></span>
   
 </li>
@@ -205,7 +205,7 @@ operatons on Dataset objects.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#read-instance_method" title="#read (instance method)">- (Object) <strong>read</strong>(dataset, by: []) </a>
+      <a href="#read-instance_method" title="#read (instance method)">- (void) <strong>read</strong>(dataset, by: []) </a>
     
 
     
@@ -220,7 +220,7 @@ operatons on Dataset objects.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Reads a datastep.</p>
+<p>Reads a dataset.</p>
 </div></span>
   
 </li>
@@ -536,7 +536,7 @@ operatons on Dataset objects.</p>
       <div class="method_details first">
   <h3 class="signature first" id="create-instance_method">
   
-    - (<tt>void</tt>) <strong>create</strong>(*dataset) 
+    - (<tt>void</tt>) <strong>create</strong>(*dataset) { ... }
   
 
   
@@ -545,13 +545,25 @@ operatons on Dataset objects.</p>
 </h3><div class="docstring">
   <div class="discussion">
     <p class="note returns_void">This method returns an undefined value.</p>
-<p>Creates one or more datasets.</p>
+<p>Used to create data in datasets.  Each dataset listed as an argument is
+opened for writing at the beginning of the block and is closed at the end.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='const'>Datastep</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='id identifier rubyid_mydataset'>mydataset</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ds'>ds</span><span class='op'>|</span>
+  <span class='comment'># ... variable definitions and transforms ...
+</span>  <span class='id identifier rubyid_ds'>ds</span><span class='period'>.</span><span class='id identifier rubyid_write_row'>write_row</span>
+<span class='kw'>end</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -572,6 +584,24 @@ operatons on Dataset objects.</p>
   
 </ul>
 
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>Yields a dataset object that is ready for write.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -579,23 +609,23 @@ operatons on Dataset objects.</p>
       <pre class="lines">
 
 
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
 24
 25
 26
-27</pre>
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_dataset'>dataset</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>datastep called, no block given</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -640,11 +670,11 @@ operatons on Dataset objects.</p>
       <pre class="lines">
 
 
-139
-140</pre>
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_merge'>merge</span>
 <span class='kw'>end</span></pre>
@@ -656,7 +686,7 @@ operatons on Dataset objects.</p>
       <div class="method_details ">
   <h3 class="signature " id="read-instance_method">
   
-    - (<tt>Object</tt>) <strong>read</strong>(dataset, by: []) 
+    - (<tt>void</tt>) <strong>read</strong>(dataset, by: []) 
   
 
   
@@ -664,8 +694,8 @@ operatons on Dataset objects.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Reads a datastep.</p>
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Reads a dataset.</p>
 
 
   </div>
@@ -708,24 +738,6 @@ operatons on Dataset objects.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>a block</p>
-</div>
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -733,25 +745,25 @@ operatons on Dataset objects.</p>
       <pre class="lines">
 
 
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
 46
 47
 48
 49
 50
-51</pre>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_dataset'>dataset</span><span class='comma'>,</span> <span class='label'>by:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DATASET.READ&gt; **</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dataset'>dataset</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>**</span><span class='tstring_end'>&quot;</span></span>
@@ -798,16 +810,6 @@ operatons on Dataset objects.</p>
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
 64
 65
 66
@@ -851,10 +853,20 @@ operatons on Dataset objects.</p>
 104
 105
 106
-107</pre>
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort'>sort</span><span class='lparen'>(</span><span class='id identifier rubyid_in_ds'>in_ds</span><span class='comma'>,</span> <span class='label'>out:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>by:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>in_memory:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>split_size:</span> <span class='int'>100000</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_in_memory'>in_memory</span>
@@ -939,16 +951,6 @@ operatons on Dataset objects.</p>
       <pre class="lines">
 
 
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
 120
 121
 122
@@ -966,10 +968,20 @@ operatons on Dataset objects.</p>
 134
 135
 136
-137</pre>
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/remi/datastep.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_in_memory'>sort_in_memory</span><span class='lparen'>(</span><span class='id identifier rubyid_in_ds'>in_ds</span><span class='comma'>,</span> <span class='label'>out:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>by:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_out_ds'>out_ds</span> <span class='op'>=</span> <span class='id identifier rubyid_out'>out</span>
@@ -1009,7 +1021,7 @@ operatons on Dataset objects.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon May 26 12:30:25 2014 by
+  Generated on Mon May 26 13:00:24 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.0.0).
 </div>
